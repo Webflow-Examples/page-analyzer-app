@@ -1,12 +1,12 @@
-# Page Content Data Client App
+# Page Analyzer Data Client App
 
 A [Webflow Data Client App](https://developers.webflow.com/data/docs/data-clients) example that has the following:
 
-- Built with [Astro](https://astro.build/), a modern web framework with an all-in-one front-end / back-end
-- [Webflow OAuth](https://developers.webflow.com/data/reference/authorization) flow
-- Using the [Webflow JS SDK](https://github.com/webflow/js-webflow-api) to call various Webflow Data v2 APIs ([List Sites](https://developers.webflow.com/data/reference/list-sites), [List Pages](https://developers.webflow.com/data/reference/list-pages), [Get Page Content](https://developers.webflow.com/data/reference/get-static-content))
-- Use [Textgears API](https://textgears.com/api#readability) to analyze page content readability
-- Use [Groq API](https://console.groq.com/docs/text-chat) to summarize page content to a 2nd grader level
+- :astronaut: Built with [Astro](https://astro.build/), a modern web framework with an all-in-one front-end / back-end
+- 🔒 [Webflow OAuth](https://developers.webflow.com/data/reference/authorization) flow
+- 🛠️ Using the [Webflow JS SDK](https://github.com/webflow/js-webflow-api) to call various Webflow Data v2 APIs ([List Sites](https://developers.webflow.com/data/reference/list-sites), [List Pages](https://developers.webflow.com/data/reference/list-pages), [Get Page Content](https://developers.webflow.com/data/reference/get-static-content))
+- 📚 Use [Textgears API](https://textgears.com/api#readability) to analyze page content readability
+- 🤖 Use [Groq API](https://console.groq.com/docs/text-chat) to summarize page content to a 2nd grader level
 
 ## 🚀 Project Structure
 
@@ -47,17 +47,22 @@ Want to try the app out or experiment with the code locally? Follow along below!
 
 ### Prerequisites
 
-1. Setup [ngrok](https://developers.webflow.com/data/docs/getting-started-data-clients#step-1-setup-your-local-development-environment) locally
+1. Clone this project down to your local machine, and `cd` into the project
+2. Setup [ngrok](https://developers.webflow.com/data/docs/getting-started-data-clients#step-1-setup-your-local-development-environment) locally
    - Sign up for a [free ngrok account](https://ngrok.com/download)
-   - Install ngrok on your machine, and authenticate ngrok with [your auth token](https://dashboard.ngrok.com/get-started/your-authtoken) via `ngrok config add-authtoken <token>`
-2. Clone this project down to your local machine, and `cd` into the project
+   - Install ngrok on your machine, grab the [ngrok auth token](https://dashboard.ngrok.com/get-started/your-authtoken)
+   - At the root of the project, set the token value in the `.env` file in the `NGROK_AUTHTOKEN` variable
 
 ### Setup Guide
 
-1. Run `npm i` to install dependencies
-2. Run `npm run dev` to start the local dev server at `http://localhost:4321`
-3. In a separate terminal tab, run `npm run ngrok` to route your localhost port to an `https://` endpoint by ngrok (you should see something like "Forwarding `https://xyz123-free.app` -> `http://localhost:4321`")
-4. [Register a Webflow Data Client app](https://developers.webflow.com/data/docs/register-an-app#register-an-app) in your workspace, fill in your own details but input the following values for the fields below
+1. Run the following commabnds to install dependencies and start the local dev server. This will also set up an ngrok instance (you should see something random like a `https://xyz123-free.app` URL)
+
+```sh
+npm install
+npm run dev
+```
+
+2. [Register a Webflow Data Client app](https://developers.webflow.com/data/docs/register-an-app#register-an-app) in your workspace, fill in your own details but input the following values for the fields below
    - App Info:
      - **App homepage URL:** This should be the URL ngrok provided (i.e. `https://xyz123-free.app`)
    - Building blocks:
@@ -67,20 +72,20 @@ Want to try the app out or experiment with the code locally? Follow along below!
        - CMS: Read and write
        - Pages: Read and write
        - Sites: Read and write
-5. You should now see a **Client ID** and **Secret ID** associated with your new app! Set those values in the `.env` file of this project for `WEBFLOW_CLIENT_ID` and `WEBFLOW_CLIENT_SECRET` respectively
-6. In the same `.env` file, set `PUBLIC_WEBFLOW_BASE_URL` to be the ngrok URL (i.e., `https://xyz123-free.app`) and `PUBLIC_WEBFLOW_REDIRECT_URL` to be the same with `/auth` added at the end (i.e., `https://xyz123-free.app/auth`)
-7. You'll need to terminate the process where you ran `npm run dev`, and restart it again to allow the `.env` values to propagate
-8. Click the "Install" button on your app in the Webflow Dashboard and install it to a site to start!
-9. To try some of the features in this app that ingest Webflow page content, you'll need to follow the optional set up steps below to get API keys from the 3rd party libraries used in this project.
+3. You should now see a **Client ID** and **Secret ID** associated with your new app! Set those values in the `.env` file of this project for `WEBFLOW_CLIENT_ID` and `WEBFLOW_CLIENT_SECRET` respectively
+4. Click the "Install" button on your app in the Webflow Dashboard and install it on a test Webflow site to start!
+5. To try some of the features in this app that ingest Webflow page content, you'll need to follow the optional set up steps below to get API keys from the 3rd party libraries used in this project.
+
+> ❗ Keep in mind that every time you end the `npm run dev` process and re-run that command to start the server up, you'll be given a completely different ngrok URL. You'll need to ensure you edit the app in your Webflow dashboard to change the values for **App homepage URL** and **Redirect URI** from above.
 
 ### (Optional) Set up Groq
 
 In order to use the "Summarized Content" feature at `/features/summarized-content`, you need to get an API key for Groq by [creating a free account](https://console.groq.com/keys) and set the value in the `.env` file for `GROQ_API_KEY`.
 
-> Note that there is no credit card necessary to try out the APIs!
+> 🆓 Note that there is no credit card necessary to try out the APIs!
 
 ### (Optional) Set up Textgears
 
 In order to use the "Readability" feature at `/features/readability-score`, you need to get an API key from Textgears by [creating a free account](https://textgears.com/user) and set the value in the `.env` file for `TEXTGEARS_API_KEY`.
 
-> Note that there is no credit card necessary to try out the APIs!
+> 🆓 Note that there is no credit card necessary to try out the APIs!
