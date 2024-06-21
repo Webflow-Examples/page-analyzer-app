@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProductsUpdateSkuRequest = exports.ProductsCreateSkuRequest = exports.ProductSkuUpdate = exports.ProductSkuCreate = void 0;
+var ProductSkuCreate_1 = require("./ProductSkuCreate");
+Object.defineProperty(exports, "ProductSkuCreate", { enumerable: true, get: function () { return ProductSkuCreate_1.ProductSkuCreate; } });
+var ProductSkuUpdate_1 = require("./ProductSkuUpdate");
+Object.defineProperty(exports, "ProductSkuUpdate", { enumerable: true, get: function () { return ProductSkuUpdate_1.ProductSkuUpdate; } });
+var ProductsCreateSkuRequest_1 = require("./ProductsCreateSkuRequest");
+Object.defineProperty(exports, "ProductsCreateSkuRequest", { enumerable: true, get: function () { return ProductsCreateSkuRequest_1.ProductsCreateSkuRequest; } });
+var ProductsUpdateSkuRequest_1 = require("./ProductsUpdateSkuRequest");
+Object.defineProperty(exports, "ProductsUpdateSkuRequest", { enumerable: true, get: function () { return ProductsUpdateSkuRequest_1.ProductsUpdateSkuRequest; } });
