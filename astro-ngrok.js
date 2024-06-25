@@ -24,9 +24,8 @@ export default function ngrokIntegration({ authtoken, port }) {
 
           // Start ngrok with the specified port
           const url = await ngrokListener.url();
-          console.log("NGROK URL", url);
-
-          console.log(`ngrok tunnel started at: ${url}`);
+          console.log("NGROK Base URL", url);
+          console.log(`Webflow Redirect URI: ${url}/api/auth`);
         } catch (err) {
           console.error("Failed to start ngrok tunnel:", err);
         }

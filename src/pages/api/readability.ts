@@ -2,9 +2,9 @@ import type { APIRoute } from "astro";
 import textgears from "textgears-api";
 import getWebflowSdk from "../utils/getWebflowSdk";
 
-export const POST: APIRoute = async ({ cookies, request }) => {
+export const POST: APIRoute = async ({ request }) => {
   // Get the Webflow SDK Client from middleware
-  const wf = getWebflowSdk(cookies);
+  const wf = await getWebflowSdk();
   if (!wf) {
     return Response.error();
   }

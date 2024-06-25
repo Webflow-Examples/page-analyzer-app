@@ -2,15 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 
 // GET Webflow Pages
-Astro.cookies.set("wf_token", Astro.cookies.get("wf_token")?.value, {path: "/"});
-const headers = new Headers();
-headers.append('Content-Type', 'application/json');
-headers.append('Cookie', Astro.request.headers.get('Cookie'));
-let pagesResponse = await fetch(`https://${Astro.url.hostname}/api/pages`, {
-    method: 'GET',
-    credentials: 'include',
-    headers,
-});
+let pagesResponse = await fetch(`https://${Astro.url.hostname}/api/pages`);
 const data = await pagesResponse.json();
 
 // POST Webflow Page to be analyzed
@@ -29,8 +21,6 @@ if (Astro.request.method === "POST") {
         body: JSON.stringify({
             pageId: pageId,
         }),
-        credentials: 'include',
-        headers,
     });
     analysis = await analysisResponse.json();
   } catch (error) {

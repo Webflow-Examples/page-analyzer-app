@@ -1,9 +1,8 @@
 import type { APIRoute } from "astro";
-import { WebflowClient } from "webflow-api";
 import getWebflowSdk from "../utils/getWebflowSdk";
 
-export const GET: APIRoute = async ({ cookies, request }) => {
-  const wf = getWebflowSdk(cookies);
+export const GET: APIRoute = async () => {
+  const wf = await getWebflowSdk();
   if (!wf) {
     return Response.error();
   }
