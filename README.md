@@ -62,6 +62,8 @@ npm install
 npm run dev
 ```
 
+> ❗ Keep in mind that every time you end the `npm run dev` process and re-run that command to start the server up, you'll be given a completely different ngrok URL. You'll need to ensure you edit the app in your Webflow dashboard to change the values for **App homepage URL** and **Redirect URI** in the next step.
+
 2. [Register a Webflow Data Client app](https://developers.webflow.com/data/docs/register-an-app#register-an-app) in your workspace, fill in your own details but input the following values for the fields below
    - App Info:
      - **App homepage URL:** This should be the URL ngrok provided (i.e. `https://xyz123-free.app`)
@@ -75,8 +77,6 @@ npm run dev
 3. You should now see a **Client ID** and **Secret ID** associated with your new app! Set those values in the `.env` file of this project for `WEBFLOW_CLIENT_ID` and `WEBFLOW_CLIENT_SECRET` respectively
 4. Click the "Install" button on your app in the Webflow Dashboard and install it on a test Webflow site to start!
 5. To try some of the features in this app that ingest Webflow page content, you'll need to follow the optional set up steps below to get API keys from the 3rd party libraries used in this project.
-
-> ❗ Keep in mind that every time you end the `npm run dev` process and re-run that command to start the server up, you'll be given a completely different ngrok URL. You'll need to ensure you edit the app in your Webflow dashboard to change the values for **App homepage URL** and **Redirect URI** from above.
 
 ### (Optional) Set up Groq
 

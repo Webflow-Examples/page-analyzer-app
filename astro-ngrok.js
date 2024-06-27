@@ -1,5 +1,8 @@
 import { defineIntegration } from "astro";
 import ngrok from "@ngrok/ngrok";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default function ngrokIntegration({ authtoken, port }) {
   return {
@@ -8,7 +11,7 @@ export default function ngrokIntegration({ authtoken, port }) {
       "astro:server:start": async () => {
         let ngrokListener;
         try {
-          const ngrokEnvToken = import.meta.env.NGROK_AUTHTOKEN;
+          const ngrokEnvToken = process.env.NGROK_AUTHTOKEN;
           // Authenticate ngrok with authtoken if provided
           if (!!ngrokEnvToken) {
             ngrokListener = await ngrok.forward({
