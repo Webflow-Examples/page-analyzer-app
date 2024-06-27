@@ -55,7 +55,7 @@ Want to try the app out or experiment with the code locally? Follow along below!
 
 ### Setup Guide
 
-1. Run the following commabnds to install dependencies and start the local dev server. This will also set up an ngrok instance (you should see something random like a `https://xyz123-free.app` URL)
+1. Run the following commands to install dependencies and start the local dev server. This will also set up an ngrok instance (you should see something random like a `https://xyz123-free.app` URL)
 
 ```sh
 npm install
