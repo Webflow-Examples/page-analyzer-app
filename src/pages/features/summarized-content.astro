@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// GET Webflow Pages
+let pagesResponse = await fetch(`https://${Astro.url.hostname}/api/pages`);
+const data = await pagesResponse.json();
+
+// POST Webflow Page to be analyzed
+let analysis;
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    let pageId;
+    for (const pair of data) {
+        if (pair[0] === "page") {
+			pageId = pair[1];
+		}
+	}
+    const analysisResponse = await fetch(`https://${Astro.url.hostname}/api/summary`, {
+        method: 'POST',
+        body: JSON.stringify({
+            pageId: pageId,
+        }),
+    });
+    analysis = await analysisResponse.json();
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+
+---
+
+<Layout title="Content Summary for Kids">
+	<main>
+		<h1>Summarize your Page with <span class="text-gradient">Groq</span></h1>
+		<p class="instructions">
+			Use the <a href="https://wow.groq.com/why-groq/" target="_blank">Groq API</a> to find the highlights of your page content.
+		</p>
+        <p><b>Note: </b>This is not meant to showcase a comprehensive or fully "correct" example, but instead show how to use Webflow Data APIs to read and manipulate content, and work with other 3rd party libraries.</p>
+        <br />
+        <form id="page-analysis-form" class="max-w-sm mx-auto flex gap-x-2" method="POST">
+            <label for="page" class="sr-only">Select a Page to test</label>
+            <select id="page" name="page" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Select a Webflow Page</option>
+                {data.pages.map((page) => (
+                    <option value={page.id}>{page.title}</option>
+                ))}
+            </select>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+        </form>
+		<br />
+        {(analysis?.choices) && (
+            <h2>Summarized Content</h2>
+            <br />
+            <div>
+                {/* {analysis?.response.highlight.map((note) => (
+                    <p>{note}</p>
+                ))} */}
+                <p>{analysis?.choices[0]?.message?.content}</p>
+            </div>
+        )}
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+	}
+	.astro-a {
+		position: absolute;
+		top: -32px;
+		left: 50%;
+		transform: translatex(-50%);
+		width: 220px;
+		height: auto;
+		z-index: -1;
+	}
+	a {
+		text-decoration: underline;
+	}
+	h1 {
+		font-size: 4rem;
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin-bottom: 1em;
+	}
+	.text-gradient {
+		background-image: var(--accent-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: 400%;
+		background-position: 0%;
+	}
+	.instructions {
+		margin-bottom: 2rem;
+		border: 1px solid rgba(var(--accent-light), 25%);
+		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
+		padding: 1.5rem;
+		border-radius: 8px;
+	}
+	.instructions code {
+		font-size: 0.8em;
+		font-weight: bold;
+		background: rgba(var(--accent-light), 12%);
+		color: rgb(var(--accent-light));
+		border-radius: 4px;
+		padding: 0.3em 0.4em;
+	}
+	.instructions strong {
+		color: rgb(var(--accent-light));
+	}
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 2rem;
+		padding: 0;
+	}
+</style>
