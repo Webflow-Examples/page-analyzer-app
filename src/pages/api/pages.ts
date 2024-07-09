@@ -1,21 +1,27 @@
 import type { APIRoute } from "astro";
 import getWebflowSdk from "../utils/getWebflowSdk";
 
-export const GET: APIRoute = async () => {
+export const GET: APIRoute = async ({ request }) => {
   const wf = await getWebflowSdk();
   if (!wf) {
     return Response.error();
   }
-  const sites = await wf.sites.list();
-  if (sites && sites.sites?.length) {
-    const firstSite = sites.sites[0];
-    const pages = await wf.pages.list(firstSite.id);
-    if (pages.pages?.length) {
-      return new Response(
-        JSON.stringify({
-          pages: pages.pages,
-        })
-      );
+  const url = new URL(request.url);
+
+  // Extract query parameters
+  const queryParams = Object.fromEntries(url.searchParams.entries());
+  const siteId = queryParams["siteId"];
+  if (siteId) {
+    const site = await wf.sites.get(siteId);
+    if (site) {
+      const pages = await wf.pages.list(site.id);
+      if (pages.pages?.length) {
+        return new Response(
+          JSON.stringify({
+            pages: pages.pages,
+          })
+        );
+      }
     }
   }
   return Response.error();

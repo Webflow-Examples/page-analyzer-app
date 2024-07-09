@@ -1,0 +1,23 @@
+---
+// GET Webflow Sites
+let sitesResponse = await fetch(`https://${Astro.url.hostname}/api/sites`);
+const sitesData = await sitesResponse.json();
+---
+
+<p><b>Note: </b>This is not meant to showcase a comprehensive or fully "correct" example, but instead show how to use Webflow Data APIs to read and manipulate content, and work with other 3rd party libraries.</p>
+<br />
+<form id="page-analysis-form" class="max-w-sm mx-auto flex flex-col gap-x-2 gap-y-2" method="POST">
+    <label for="site" class="sr-only">Select a Site to test</label>
+    <select id="site" name="site" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option selected>Select a Webflow Site</option>
+        {sitesData.sites.map((site) => (
+            <option value={site.id}>{site.displayName}</option>
+        ))}
+    </select>
+</form>
+<br />
+
+<script>
+    import siteEventListener from '../pages/utils/setupSiteEventListener';
+    siteEventListener();
+</script>

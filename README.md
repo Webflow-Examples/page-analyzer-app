@@ -53,6 +53,18 @@ Want to try the app out or experiment with the code locally? Follow along below!
    - Install ngrok on your machine, grab the [ngrok auth token](https://dashboard.ngrok.com/get-started/your-authtoken)
    - At the root of the project, set the token value in the `.env` file in the `NGROK_AUTHTOKEN` variable
 
+#### (Optional) Set up Groq
+
+In order to use the "Summarized Content" feature at `/features/summarized-content`, you need to get an API key for Groq by [creating a free account](https://console.groq.com/keys) and set the value in the `.env` file for `GROQ_API_KEY`.
+
+> 🆓 Note that there is no credit card necessary to try out the APIs!
+
+#### (Optional) Set up Textgears
+
+In order to use the "Readability" feature at `/features/readability-score`, you need to get an API key from Textgears by [creating a free account](https://textgears.com/user) and set the value in the `.env` file for `TEXTGEARS_API_KEY`.
+
+> 🆓 Note that there is no credit card necessary to try out the APIs!
+
 ### Setup Guide
 
 1. Run the following commands to install dependencies and start the local dev server. This will also set up an ngrok instance (you should see something random like a `https://xyz123-free.app` URL)
@@ -77,15 +89,3 @@ npm run dev
 3. You should now see a **Client ID** and **Secret ID** associated with your new app! Set those values in the `.env` file of this project for `WEBFLOW_CLIENT_ID` and `WEBFLOW_CLIENT_SECRET` respectively
 4. Click the "Install" button on your app in the Webflow Dashboard and install it on a test Webflow site to start!
 5. To try some of the features in this app that ingest Webflow page content, you'll need to follow the optional set up steps below to get API keys from the 3rd party libraries used in this project.
-
-### (Optional) Set up Groq
-
-In order to use the "Summarized Content" feature at `/features/summarized-content`, you need to get an API key for Groq by [creating a free account](https://console.groq.com/keys) and set the value in the `.env` file for `GROQ_API_KEY`.
-
-> 🆓 Note that there is no credit card necessary to try out the APIs!
-
-### (Optional) Set up Textgears
-
-In order to use the "Readability" feature at `/features/readability-score`, you need to get an API key from Textgears by [creating a free account](https://textgears.com/user) and set the value in the `.env` file for `TEXTGEARS_API_KEY`.
-
-> 🆓 Note that there is no credit card necessary to try out the APIs!
